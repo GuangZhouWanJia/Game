@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=1.0, user-scalable=yes">
+	<title>HTML5 Tower Defense</title>
+	<link href="css/c.css" rel="stylesheet" media="screen">
+</head>
+
+<body id="tower-defense">
+<div id="wrapper">
+	<div id="td-wrapper">
+		<h1>HTML5 Tower Defense</h1>
+<form id="myForm">
+	<label for="myColInput">请输入游戏列数：</label>
+    <input type="text" id="myColInput" placeholder="至少大于6列，默认8列">
+</form>
+
+
+<div>
+<label>请输入游戏模式：</label>
+<input type="text" id="myInput" placeholder="difficulty+">
+<button onclick="submitValue()">Submit</button>
+</div>
+		<div id="td-loading">“请输入游戏列数”，程序正在加载中...</div>
+		<div id="td-board">
+			<canvas id="td-canvas">抱歉，您的浏览器不支持 HTML 5 Canvas 标签，请使用 IE9 / Chrome / Opera 等浏览器浏览本页以获得最佳效果。</canvas>
+		</div>
+	</div>
+	<div id="about">
+		<a href="https://guangzhouwanjia.github.io/game" target="_blank">关于</a> |
+		<a href="https://guangzhouwanjia.github.io/game/">广州玩家</a> &copy; 2024-2030
+	</div>
+</div>
+
+<script type="text/javascript" src="js/td.js"></script>
+<script type="text/javascript" src="js/td-lang.js"></script>
+<script type="text/javascript" src="js/td-event.js"></script>
+<script type="text/javascript" src="js/td-stage.js"></script>
+<script type="text/javascript" src="js/td-element.js"></script>
+<script type="text/javascript" src="js/td-obj-map.js"></script>
+<script type="text/javascript" src="js/td-obj-grid.js"></script>
+<script type="text/javascript" src="js/td-obj-building.js"></script>
+<script type="text/javascript" src="js/td-obj-monster.js"></script>
+<script type="text/javascript" src="js/td-obj-panel.js"></script>
+<script type="text/javascript" src="js/td-data-stage-1.js"></script>
+<script type="text/javascript" src="js/td-cfg-buildings.js"></script>
+<script type="text/javascript" src="js/td-cfg-monsters.js"></script>
+<script type="text/javascript" src="js/td-render-buildings.js"></script>
+<script type="text/javascript" src="js/td-msg-zh.js"></script>
+<script type="text/javascript" src="js/td-walk.js"></script>
+
+
+
+<!--<script type="text/javascript" src="td-pkg-min.js?fmts=1"></script>-->
+
+<script type="text/javascript">
+var varCol=8;
+
+window.onload = function () {
+    var inputElement = document.getElementById('myColInput');
+	var timeoutId;
+	
+    inputElement.addEventListener('input', function() {
+		clearTimeout(timeoutId);
+        // 设置一个新的超时，500毫秒后执行
+        timeoutId = setTimeout(function() {
+			var inputValue = inputElement.value.trim(); 
+			if (inputValue !== '') {
+				varCol=inputValue;
+				//console.log('最新的值：', inputValue);
+				//console.log('最新的varCol值：', varCol);
+				_TD.init("td-board", true);
+				document.getElementById("td-loading").style.display = "none";
+				document.getElementById("td-board").style.display = "block";
+			}
+            }, 500);
+	});
+};
+
+// 模式选择器
+function submitValue() {
+    var inputValue = document.getElementById('myInput').value;
+    _TD.cheat = inputValue;
+    console.error(_TD && _TD.cheat);
+}
+</script>
+
+
+</body>
+</html>
